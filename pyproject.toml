@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "personal-financial-wallet"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+packages = [{include = "personal_financial_wallet"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+prompt = "^0.4.1"
+
+[tool.poetry.group.dev.dependencies]
+flake8 = "^7.0.0"
+
+[tool.poetry.scripts]
+wallet = "financial_wallet.scripts.wallet:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
