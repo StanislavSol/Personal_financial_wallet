@@ -3,7 +3,7 @@ import argparse
 from financial_wallet import command_handler
 
 
-def get_args():
+def get_args() -> str:
     parser = argparse.ArgumentParser(description='''
     Задай команду из предложенных, следуй инструкции и получи результат''')
     parser.add_argument('-i', '--instruction', metavar='INSTRUCTION',
@@ -12,18 +12,18 @@ def get_args():
                             'balance',
                             'income',
                             'consumption',
-                            'add_note',
+                            'add_entry',
                             'change_entry',
                             'delete_entry',
-                            'search_record',
-                        ]
-    )
+                            'find_entry',
+                        ])
     return parser.parse_args()
 
 
-def main():
-    args = get_args()
+def main() -> None:
+    args: str = get_args()
     print(command_handler(command=args.instruction))
+
 
 if __name__ == '__main__':
     main()

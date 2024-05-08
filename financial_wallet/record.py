@@ -1,21 +1,21 @@
 import csv
-import prompt
 from datetime import datetime
 from financial_wallet.balance import Balance, PATH_FILE
 from financial_wallet.validator import get_valid_value
 
+
 class Record(Balance):
 
-    def request_data(self, current_date=None):
+    def request_data(self, current_date=None) -> dict:
+        '''Запрашиваем данные у пользователя для записи в файл'''
         if current_date is None:
-            now = datetime.now()
-            current_date = now.strftime("%Y-%m-%d")
+            now: datetime = datetime.now()
+            current_date: str = now.strftime("%Y-%m-%d")
 
-        category = get_valid_value('Категория')
-        money = get_valid_value('Сумма')
-        description = get_valid_value('Описание')
-
-        data = {
+        category: str = get_valid_value('Категория')
+        money: int = get_valid_value('Сумма')
+        description: str = get_valid_value('Описание')
+        data: dict = {
             'Дата': current_date,
             'Категория': category,
             'Сумма': money,
@@ -24,9 +24,9 @@ class Record(Balance):
 
         return data
 
-
     def write_data(self):
-        columns = [
+        '''Записываем даннные в файл'''
+        columns: list[str] = [
             'Дата',
             'Категория',
             'Сумма',
@@ -42,10 +42,10 @@ class Record(Balance):
             writer.writeheader()
             writer.writerows(self.current_data)
 
-
-    def add_record(self, data_for_record=None):
+    def add_record(self, data_for_record=None) -> str:
+        '''Передаем данные на запись в файл'''
         if data_for_record is None:
-            data_for_record=self.request_data()
+            data_for_record: dict = self.request_data()
         self.current_data.append(data_for_record)
         self.write_data()
         return 'Данные успешно добавлены!'
